@@ -1,5 +1,4 @@
 module Utilidades where
-import Data.Typeable
 
 --------------------------------Utilidades de repositorio apdaza-------------------------------
 
@@ -125,7 +124,7 @@ cantidadImpares::[Int]->Int
 cantidadImpares [] = 0
 cantidadImpares (x:xs) = tamLista ([x | x <- (x:xs), esImpar(x)])
 
-contieneLista::[a]->[TypeRep]
+contieneLista::[a]->[a]
 contieneLista [] = []
 --contieneLista (x:xs) = [typeOf x | x <- (x:xs)]
 
