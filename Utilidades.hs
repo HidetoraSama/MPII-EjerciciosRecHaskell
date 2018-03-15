@@ -19,13 +19,10 @@ sumaLista (b:bs) = b + sumaLista (bs)
 doblarLista::[Int]->[Int]
 doblarLista (x:xs) = [2*x | x <- (x:xs)]
 
-enuplarLista::Int->[Int]->[Int]
-enuplarLista n (x:xs) = [n*x | x <- (x:xs)]
-
 cuentaApariciones::[Int]->Int->Int
 cuentaApariciones [] x = 0
 cuentaApariciones (b:bs) x = if b == x then 1 + cuentaApariciones (bs) x
-                                       else cuentaApariciones (bs) x
+                             else cuentaApariciones (bs) x
 
 -------------------------------------Otras funciones utiles------------------------------------
 
@@ -40,6 +37,19 @@ removerExtremos::Int->Int
 removerExtremos n
    | longitud n <= 2 = n
    | otherwise = (n `div` 10) - primerDigito n * 10 ^ (longitud n - 2)
+
+enuplarLista::Int->[Int]->[Int]
+enuplarLista n (x:xs) = [n*x | x <- (x:xs)]
+
+esPar::Int->Bool
+esPar n = n `mod` 2 == 0
+
+esImpar::Int->Bool
+esImpar n = n `mod` 2 == 1
+
+tamLista::[a]->Int
+tamLista [] = 0
+tamLista (_:xs) = 1 + tamLista xs
 
 -----------------------------Funciones recursividad primera entrega----------------------------
 
@@ -93,3 +103,20 @@ sumaDigitos n = if n < 10 then n
 invertirLista::[a]->[a]
 invertirLista [] = []
 invertirLista (x:xs) = invertirLista xs ++ [x]
+
+sumaPares::[Int]->Int
+sumaPares [] = 0
+sumaPares (x:xs) = sumaLista ([x | x <- (x:xs), esPar(x)])
+
+cantidadImpares::[Int]->Int
+cantidadImpares [] = 0
+cantidadImpares (x:xs) = tamLista ([x | x <- (x:xs), esImpar(x)])
+
+contieneLista::[Int]->Bool
+contieneLista [] = False
+
+maximo::[Int]->Int
+maximo [x] = x
+maximo (x:n:xs)
+   | x >= n = maximo (x:xs)
+   | otherwise = maximo (n:xs)
