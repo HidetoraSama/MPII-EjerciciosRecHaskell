@@ -1,4 +1,5 @@
 module Utilidades where
+import Data.Typeable
 
 --------------------------------Utilidades de repositorio apdaza-------------------------------
 
@@ -50,6 +51,18 @@ esImpar n = n `mod` 2 == 1
 tamLista::[a]->Int
 tamLista [] = 0
 tamLista (_:xs) = 1 + tamLista xs
+
+substring::String->String->Bool
+substring (x:xs) [] = False
+substring xs ys
+   | prefix xs ys = True
+   | substring xs (tail ys) = True
+   | otherwise = False
+
+prefix::String->String->Bool
+prefix [] ys = True
+prefix (x:xs) [] = False
+prefix (x:xs) (y:ys) = (x == y) && prefix xs ys
 
 -----------------------------Funciones recursividad primera entrega----------------------------
 
@@ -112,8 +125,9 @@ cantidadImpares::[Int]->Int
 cantidadImpares [] = 0
 cantidadImpares (x:xs) = tamLista ([x | x <- (x:xs), esImpar(x)])
 
-contieneLista::[Int]->Bool
-contieneLista [] = False
+contieneLista::[a]->[TypeRep]
+contieneLista [] = []
+--contieneLista (x:xs) = [typeOf x | x <- (x:xs)]
 
 maximo::[Int]->Int
 maximo [x] = x
