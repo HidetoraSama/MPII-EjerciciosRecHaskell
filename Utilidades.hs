@@ -1,6 +1,6 @@
 module Utilidades where
 
---------------------------------Utilidades de repositorio apdaza-------------------------------
+---------------------------------Utilidades de repositorio apdaza------------------------------
 
 agregarElemento::a->[a]->[a]
 agregarElemento n (x:xs) = (n:x:xs)
