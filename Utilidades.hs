@@ -120,9 +120,21 @@ sumaPares::[Int]->Int
 sumaPares [] = 0
 sumaPares (x:xs) = sumaLista ([x | x <- (x:xs), esPar(x)])
 
+sumaParesRec::[Int]->Int
+sumaParesRec [] = 0
+sumaParesRec (b:bs)
+   | esPar(b) = b + sumaParesRec (bs)
+   | otherwise = sumaParesRec (bs)
+
 cantidadImpares::[Int]->Int
 cantidadImpares [] = 0
 cantidadImpares (x:xs) = tamLista ([x | x <- (x:xs), esImpar(x)])
+
+cantidadImparesRec::[Int]->Int
+cantidadImparesRec [] = 0
+cantidadImparesRec (b:bs)
+   | esImpar(b) = 1 + cantidadImparesRec (bs)
+   | otherwise = cantidadImparesRec (bs)
 
 contieneLista::[a]->[a]
 contieneLista [] = []
