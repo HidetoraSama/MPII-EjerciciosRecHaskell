@@ -1,4 +1,6 @@
-module InversionListas where
+module Utilidades where
+
+--------------------------------Utilidades de repositorio apdaza-------------------------------
 
 agregarElemento::a->[a]->[a]
 agregarElemento n (x:xs) = (n:x:xs)
@@ -6,9 +8,6 @@ agregarElemento n (x:xs) = (n:x:xs)
 encolarElemento::a->[a]->[a]
 encolarElemento n [] = [n]
 encolarElemento n (x:xs) = agregarElemento x (encolarElemento n (xs))
-
-invertirLista::[a]->[a]
-invertirLista (first:secondToFinal) = [first | first <- (first:secondToFinal)]
 
 unirListas::[a]->[a]->[a]
 unirListas (x:xs) (b:bs) = (x:xs) ++ (b:bs)
@@ -26,4 +25,71 @@ enuplarLista n (x:xs) = [n*x | x <- (x:xs)]
 cuentaApariciones::[Int]->Int->Int
 cuentaApariciones [] x = 0
 cuentaApariciones (b:bs) x = if b == x then 1 + cuentaApariciones (bs) x
-                             else cuentaApariciones (bs) x
+                                       else cuentaApariciones (bs) x
+
+-------------------------------------Otras funciones utiles------------------------------------
+
+primerDigito::Int->Int
+primerDigito n = ultimoDigito (invertir n)
+
+ultimoDigito::Int->Int
+ultimoDigito n = if n < 10 then n
+                 else n - (n `div` 10) * 10
+
+removerExtremos::Int->Int
+removerExtremos n
+   | longitud n <= 2 = n
+   | otherwise = (n `div` 10) - primerDigito n * 10 ^ (longitud n - 2)
+
+-----------------------------Funciones recursividad primera entrega----------------------------
+
+division::Int->Int->Int
+division n m = if n < m then 0
+               else 1 + division (n - m) m
+
+fibonacci::Int->Int
+fibonacci n
+   | n == 0 = 0
+   | n == 1 = 1
+   | otherwise = fibonacci (n - 1) + fibonacci (n - 2)
+
+invertir::Int->Int
+invertir n = if n < 10 then n
+             else ultimoDigito n * 10 ^ longitud (n `div` 10) + invertir (n `div` 10)
+
+longitud::Int->Int
+longitud n = if n < 10 then 1
+             else 1 + longitud (n `div` 10)
+
+mayorDigito::Int->Int
+mayorDigito n
+   | n < 10 = n
+   | n `mod` 10 > mayorDigito (n `div` 10) = n `mod` 10
+   | otherwise = mayorDigito (n `div` 10)
+
+palindromo::Int->Bool
+palindromo n
+   | longitud n <= 1 = True
+   | primerDigito n == ultimoDigito n = palindromo (removerExtremos n)
+   | otherwise = False
+
+potencia::Int->Int->Int
+potencia m n
+   | n == 0 = 1
+   | n == 1 = m
+   | otherwise = m * potencia m (n - 1)
+
+producto::Int->Int->Int
+producto m n
+   | m == 0 = 0
+   | m == 1 = n
+   | otherwise = n + producto n (m - 1)
+
+sumaDigitos::Int->Int
+sumaDigitos n = if n < 10 then n
+                else n `mod` 10 + sumaDigitos (n `div` 10)
+-----------------------------------Funciones solicitadas---------------------------------------
+
+invertirLista::[a]->[a]
+invertirLista [] = []
+invertirLista (x:xs) = invertirLista xs ++ [x]
