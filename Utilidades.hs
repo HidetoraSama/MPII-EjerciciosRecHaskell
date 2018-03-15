@@ -26,6 +26,11 @@ cuentaApariciones (b:bs) x = if b == x then 1 + cuentaApariciones (bs) x
 
 -------------------------------------Otras funciones utiles------------------------------------
 
+enLista::Int->[Int]->Bool
+enLista n [] = False
+enLista n (x:xs) = if n == x then True
+                   else enLista n xs
+
 primerDigito::Int->Int
 primerDigito n = ultimoDigito (invertir n)
 
@@ -136,9 +141,15 @@ cantidadImparesRec (b:bs)
    | esImpar(b) = 1 + cantidadImparesRec (bs)
    | otherwise = cantidadImparesRec (bs)
 
-contieneLista::[a]->[a]
-contieneLista [] = []
---contieneLista (x:xs) = [typeOf x | x <- (x:xs)]
+contieneLista::[Int]->[Int]->Bool
+contieneLista x [] = False
+contieneLista x (y:ys) = 
+
+contieneListaRec::[Int]->[Int]->Bool
+contieneListaRec [] [] = True
+contieneListaRec [] (y:ys) = True
+contieneListaRec (x:xs) [] = True
+contieneListaRec (x:xs) (y:ys) = enLista y (x:xs) && contieneListaRec (x:xs) ys
 
 maximo::[Int]->Int
 maximo [x] = x
